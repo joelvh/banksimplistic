@@ -1,10 +1,10 @@
 source :rubygems
 
-gem 'rails', '3.0.0'
-
+gem 'rails', '3.2.3'
+gem 'hashie'
 gem 'uuidtools'
 gem 'ohm'
-
+# 
 gem 'eventwire', :git => 'git://github.com/cavalle/eventwire.git'
 
 gem 'em-redis', :require => false

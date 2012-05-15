@@ -8,9 +8,7 @@ class ClientDetailsReport < Report
   
   index :uid
   
-  set :accounts, Account
-  set :cards, Card
-  set :cancelled_cards, Card
+
 
   class Account < Report
     attribute :name
@@ -25,10 +23,14 @@ class ClientDetailsReport < Report
 
     index :card_number
   end
-
+  
+  set :accounts, Account
+  set :cards, Card
+  set :cancelled_cards, Card
+  
   on :account_created do |event|
     client = find(:uid => event.data[:client_uid]).first
-    client.accounts << Account.create(event.data.slice(:uid, :name))
+    client.accounts.add( Account.create(event.data.slice(:uid, :name)))
     client.save
   end
   
@@ -40,8 +42,8 @@ class ClientDetailsReport < Report
   on :new_card_assigned do |event|
     client = find(:uid => event.data[:client_uid]).first
     account = Account.find(:uid => event.data[:account_uid]).first
-    client.cards << Card.create(:account     => account, 
-                                :card_number => event.data[:card_number])
+    client.cards.add(Card.create(:account     => account, 
+                                :card_number => event.data[:card_number]))
   end
 
   on :client_name_changed do |event|
@@ -53,6 +55,6 @@ class ClientDetailsReport < Report
     client = find(:uid => event.data[:client_uid]).first
     card = client.cards.find(:card_number => event.data[:card_number]).first
     client.cards.delete(card)
-    client.cancelled_cards << card
+    client.cancelled_cards.add(card)
   end
 end

@@ -47,7 +47,8 @@ module Entity
   end
   
   def apply_event(name, attributes)
-    event = Event.new(:name => name, :data => attributes)
+    event = Event.create(:name => name, :data => attributes)
+    event.set_data
     do_apply event
     event.aggregate_uid = uid
     applied_events << event
