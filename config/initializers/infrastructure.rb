@@ -10,7 +10,7 @@ Rails.application.class.configure do
         raise ex
       end
     end
-    # ClientReport; ClientDetailsReport; AccountDetailsReport; MoneyTransferSaga
+    ClientReport; ClientDetailsReport; AccountDetailsReport; MoneyTransferSaga
   end
 end
 

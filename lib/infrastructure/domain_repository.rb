@@ -21,7 +21,7 @@ module DomainRepository
       aggregates.each do |aggregate|
         while event = aggregate.applied_events.shift
           save event
-          publish event
+          publish_commit event
         end
       end
     end
@@ -49,7 +49,7 @@ module DomainRepository
       event.save
     end
 
-    def publish(event)
+    def publish_commit(event)
       publish_event(event.name, {:data => event.data})
     end
     

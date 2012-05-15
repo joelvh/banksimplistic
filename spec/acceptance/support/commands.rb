@@ -1,6 +1,6 @@
 module Commands
   def create_client(attributes = {})
-    execute_command :create_client, attributes
+    execute_command_in_collection :client_commands, :create_client, attributes
   end
   
   def open_account(attributes = {})
@@ -27,6 +27,16 @@ private
   def execute_command(*args)
     DomainRepository.begin
     result = "#{args.shift}_command_handler".camelize.constantize.new.execute(*args)
+    DomainRepository.commit
+    result
+  end
+  
+  def execute_command_in_collection(*args)
+    collection_name = args.shift
+    command_name = args.shift
+
+    DomainRepository.begin
+    result = "#{collection_name.to_s.camelize}::#{command_name.to_s.camelize}CommandHandler".constantize.new.execute(*args)
     DomainRepository.commit
     result
   end
