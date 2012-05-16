@@ -4,7 +4,7 @@ Rails.application.class.configure do
     # in development the event handlers are declared only once
 
     Eventwire.configure do |c|
-      c.namespace = "BankSimplistic"
+      c.namespace = "BankSimplistic-EventStore"
       c.adapter = Rails.env.test? ? 'InProcess' : 'Redis'
       c.on_error do |ex|
         raise ex
