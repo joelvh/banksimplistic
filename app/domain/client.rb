@@ -1,9 +1,11 @@
 class Client
   include Entity
+  include Mementoize
   
   def initialize
     @account_uids = []
     @card_numbers = []
+    @name = ""
   end
   
   def self.create(attributes)
@@ -68,6 +70,7 @@ private
 
   def on_client_name_changed(event)
     # no need to change state
+    @name = event.data[:name]
   end
 
 end

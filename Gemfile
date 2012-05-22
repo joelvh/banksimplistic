@@ -13,6 +13,7 @@ gem 'bunny',    :require => false
 gem 'amqp',     :require => false
 
 gem 'ffi-rzmq', :require => false
+gem 'haml'
 
 group :development, :test do
   gem 'rspec-rails'

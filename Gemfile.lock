@@ -70,6 +70,7 @@ GEM
       ffi
     foreman (0.46.0)
       thor (>= 0.13.6)
+    haml (3.1.4)
     hashie (1.2.0)
     hike (1.2.1)
     i18n (0.6.0)
@@ -196,6 +197,7 @@ DEPENDENCIES
   eventwire!
   ffi-rzmq
   foreman
+  haml
   hashie
   launchy
   ohm

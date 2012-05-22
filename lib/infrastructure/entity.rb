@@ -1,13 +1,34 @@
 module Entity
-  
   def self.included(base)
     base.class_eval do
       attr_accessor :uid
+      attr_writer :aggregate_version
+      include InstanceMethods      
     end
-    base.extend ClassMethods
+    base.extend(ClassMethods)
+  end
+
+  module InstanceMethods    
+    def aggregate_version
+      @aggregate_version || 0
+    end
   end
   
   module ClassMethods
+    
+    def build_from_memento_and_events(memento, events)
+
+      
+      object = YAML.load(memento.data)
+
+      object.aggregate_version = memento.aggregate_version
+      
+      events.each do |event|
+        object.send :do_apply, event
+      end
+         
+      object
+    end
     
     def build_from(events)
       object = self.new
@@ -16,7 +37,7 @@ module Entity
       end
       object
     end
-    
+        
     def new_uid
       UUIDTools::UUID.timestamp_create.to_s
     end
@@ -47,18 +68,27 @@ module Entity
   end
   
   def apply_event(name, attributes)
-    event = Event.create(:name => name, :data => attributes)
-    event.set_data
+    event = Event.new(:name => name, :data => attributes)
+  
+    event.update_attributes(:aggregate_version => aggregate_version + 1 )
+    
     do_apply event
-    event.aggregate_uid = uid
+
+    #After do_apply uid will have been set on the aggregate
+    event.serialize_data
+    event.update_attributes(:aggregate_uid => uid)
+    
     applied_events << event
+
     DomainRepository.add(self)
   end
+  
 
 private
 
   def do_apply(event)
     method_name = "on_#{event.name.to_s.underscore}".sub(/_event/,'')
+    self.aggregate_version = event.aggregate_version.to_i  
     method(method_name).call(event)
   end
   

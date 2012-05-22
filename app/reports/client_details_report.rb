@@ -10,6 +10,10 @@ class ClientDetailsReport < Report
   
 
 
+  set :accounts, :Account
+  set :cards, :Card
+  set :cancelled_cards, :Card
+  
   class Account < Report
     attribute :name
     attribute :uid
@@ -23,10 +27,6 @@ class ClientDetailsReport < Report
 
     index :card_number
   end
-  
-  set :accounts, Account
-  set :cards, Card
-  set :cancelled_cards, Card
   
   on :account_created do |event|
     client = find(:uid => event.data[:client_uid]).first
