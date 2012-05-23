@@ -8,7 +8,7 @@ class DeveloperController < ApplicationController
     @mementos = all_mementos.map {|e| e }  
    
   
-    all_client_reports = ClientReport.all
+    all_client_reports = ClientDetailsReport.all
     @client_reports = all_client_reports.map {|e| e }  
     
   end

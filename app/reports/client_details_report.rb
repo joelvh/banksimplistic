@@ -28,6 +28,16 @@ class ClientDetailsReport < Report
     index :card_number
   end
   
+  def teardown
+    accounts.each do |account|
+      account.delete
+    end
+
+    cards.each do |card|
+      card.delete
+    end
+  end
+  
   on :account_created do |event|
     client = find(:uid => event.data[:client_uid]).first
     client.accounts.add( Account.create(event.data.slice(:uid, :name)))

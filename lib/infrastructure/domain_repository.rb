@@ -34,6 +34,10 @@ module DomainRepository
       end
     end
     
+    def find_events(uid)
+      events = Event.find(:aggregate_uid => uid)
+    end
+    
     def find(type, uid)
       events = Event.find(:aggregate_uid => uid )
 

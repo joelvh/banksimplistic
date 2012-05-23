@@ -15,11 +15,6 @@ class Event < Ohm::Model
     @data = value
   end
   
-  # Can only call set when model has been saved and therefore has an ID.
-  # def set_data
-  #   set(:serialized_data, @data.to_yaml)
-  # end
-  
   def serialize_data
     update_attributes(:serialized_data => @data.to_yaml)
   end
