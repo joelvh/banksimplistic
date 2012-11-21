@@ -1,3 +1,4 @@
+class Client
 class BankCard
   include Entity
 
@@ -38,4 +39,5 @@ private
   def on_card_cancelled(event)
     @active = false
   end
+end
 end

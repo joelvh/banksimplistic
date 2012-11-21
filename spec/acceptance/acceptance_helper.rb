@@ -4,7 +4,7 @@ require 'capybara/rails'
 require 'webmock/rspec'
 
 RSpec.configure do |config|
-  config.include Capybara, :type => :acceptance
+  config.include Capybara::DSL, :type => :acceptance
 
   config.before(:each) do
     Ohm.flush
@@ -15,8 +15,10 @@ RSpec.configure do |config|
   end
 end
 
-Eventwire.on_error do |ex|
-  raise ex
+Eventwire.configure do |c|
+  c.on_error do |ex|
+    raise ex
+  end
 end
 
 Capybara.app = Proc.new { |env|

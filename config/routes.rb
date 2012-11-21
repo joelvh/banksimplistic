@@ -2,7 +2,10 @@ Banksimplistic::Application.routes.draw do
   resources :clients do
     resources :accounts
     resources :cards
-    put :name, :on => :member
+    member do 
+      put :name
+      get :store_memento
+    end
   end
   
   resources :accounts do
@@ -11,6 +14,8 @@ Banksimplistic::Application.routes.draw do
   end
   
   root :to => redirect("/clients")
+
+  get "developer/index"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

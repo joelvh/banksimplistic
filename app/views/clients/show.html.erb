@@ -10,6 +10,7 @@
   <p>City: <%= @client.city %></p>
   <p>Phone Number: <%= @client.phone_number %></p>
   <%= link_to "Edit client info", edit_client_path(@client.uid) %>
+  <%= link_to "Store Memento", store_memento_client_path(@client.uid) %>  
 </section>
 
 <section>
