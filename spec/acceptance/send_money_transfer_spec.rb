@@ -44,7 +44,7 @@ feature "Send Money Transfer", %q{
     end
 
     a_request(:post, "banking-system.example.com/accounts/#{external_account_number}").
-      with(:body => {:from => source_account.uid, :amount => 19}.to_params).
+      with(:body => "from=#{source_account.uid}&amount=#{19}").
       should have_been_made
 
     page.should have_content "Balance: $0"

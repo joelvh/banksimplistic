@@ -1,10 +1,10 @@
 source :rubygems
 
-gem 'rails', '3.0.0'
-
+gem 'rails', '3.2.3'
+gem 'hashie'
 gem 'uuidtools'
 gem 'ohm'
-
+# 
 gem 'eventwire', :git => 'git://github.com/cavalle/eventwire.git'
 
 gem 'em-redis', :require => false
@@ -13,6 +13,7 @@ gem 'bunny',    :require => false
 gem 'amqp',     :require => false
 
 gem 'ffi-rzmq', :require => false
+gem 'haml'
 
 group :development, :test do
   gem 'rspec-rails'

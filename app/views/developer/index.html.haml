@@ -1,0 +1,34 @@
+%p
+  %ul
+  -for event in @events
+    %li
+      id: 
+      =event.id  
+    %ul 
+      Attributes:
+      -for key in event.attributes.keys
+        -value = event.attributes[key]
+        %li==#{key} : #{value}
+        
+%p 
+  Mementos
+  %ul
+  -for memento in @mementos
+    %li
+      id: 
+      =memento.id  
+    %ul 
+      Attributes:
+      -for key in memento.attributes.keys
+        -value = memento.attributes[key]
+        %li==#{key} : #{value}   
+
+%p 
+  Client Reports
+  %ul
+  -for memento in @client_reports
+    %ul 
+      Attributes:
+      -for key in memento.attributes.keys
+        -value = memento.attributes[key]
+        %li==#{key} : #{value}             
